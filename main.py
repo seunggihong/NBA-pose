@@ -3,24 +3,24 @@ import progressbar
 import numpy as np
 import pandas as pd
 
-BODY_PARTS = { "Head": 0, "Neck": 1, "RShoulder": 2, "RElbow": 3, "RWrist": 4,
-                "LShoulder": 5, "LElbow": 6, "LWrist": 7, "RHip": 8, "RKnee": 9,
-                "RAnkle": 10, "LHip": 11, "LKnee": 12, "LAnkle": 13, "Chest": 14,
-                "Background": 15 }
+# BODY_PARTS = { "Head": 0, "Neck": 1, "RShoulder": 2, "RElbow": 3, "RWrist": 4,
+#                 "LShoulder": 5, "LElbow": 6, "LWrist": 7, "RHip": 8, "RKnee": 9,
+#                 "RAnkle": 10, "LHip": 11, "LKnee": 12, "LAnkle": 13, "Chest": 14,
+#                 "Background": 15 }
 
-POSE_PAIRS = [ ["Head", "Neck"], ["Neck", "RShoulder"], ["RShoulder", "RElbow"],
-                ["RElbow", "RWrist"], ["Neck", "LShoulder"], ["LShoulder", "LElbow"],
-                ["LElbow", "LWrist"], ["Neck", "Chest"], ["Chest", "RHip"], ["RHip", "RKnee"],
-                ["RKnee", "RAnkle"], ["Chest", "LHip"], ["LHip", "LKnee"], ["LKnee", "LAnkle"] ]
+# POSE_PAIRS = [ ["Head", "Neck"], ["Neck", "RShoulder"], ["RShoulder", "RElbow"],
+#                 ["RElbow", "RWrist"], ["Neck", "LShoulder"], ["LShoulder", "LElbow"],
+#                 ["LElbow", "LWrist"], ["Neck", "Chest"], ["Chest", "RHip"], ["RHip", "RKnee"],
+#                 ["RKnee", "RAnkle"], ["Chest", "LHip"], ["LHip", "LKnee"], ["LKnee", "LAnkle"] ]
 
 protoFile = "openpose/pose_deploy_linevec_faster_4_stages.prototxt"
 weightsFile = "model/pose_iter_160000.caffemodel"
 
 net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
 
-video = cv2.VideoCapture("video/test_video.mp4")
-n_frames=int(video.get(cv2.CAP_PROP_FRAME_COUNT))
-fps=int(video.get(cv2.CAP_PROP_FPS))
+video = cv2.VideoCapture("video/IMG_5500.mp4")
+n_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
+fps = int(video.get(cv2.CAP_PROP_FPS))
 ok, frame = video.read()
 (frameHeight, frameWidth) = frame.shape[:2]
 h=400
@@ -98,8 +98,7 @@ while True:
         cv2.line(frame_copy, points[partA], points[partB], line_color, 1, lineType=cv2.LINE_AA)
     
     if writer is None:
-        writer = cv2.VideoWriter(out_path, fourcc, fps,
-                                 (f_w, f_h), True)
+        writer = cv2.VideoWriter(out_path, fourcc, fps, (f_w, f_h), True)
         zeros = np.zeros((f_h, f_w), dtype="uint8")
     writer.write(cv2.resize(frame_copy,(f_w, f_h)))
     
