@@ -18,7 +18,7 @@ weightsFile = "model/pose_iter_160000.caffemodel"
 
 net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
 
-video = cv2.VideoCapture("video/IMG_5500.mp4")
+video = cv2.VideoCapture("video/golf.mp4")
 n_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
 fps = int(video.get(cv2.CAP_PROP_FPS))
 ok, frame = video.read()
@@ -28,7 +28,7 @@ w=int((h/frameHeight)*frameWidth)
 inHeight=368
 inWidth=368
 
-out_path = 'output/out_1.mp4'
+out_path = 'output/golf_out.mp4'
 # Define the output
 output = cv2.VideoWriter(out_path, 0, fps, (w, h))
 
@@ -114,7 +114,7 @@ while True:
     if key == ord("q"):
         break
 
-csv_path = 'output/out_1.csv'
+csv_path = 'output/golf_out.csv'
 # Save the output data from the video in CSV format
 df = pd.DataFrame(data)
 df.to_csv(csv_path, index = False)
